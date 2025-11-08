@@ -18,12 +18,10 @@ import java.util.List;
 @RequestMapping("/prescriptions")
 public class PrescriptionController {
     private final PrescriptionService service;
-    private final UserRepository userRepo;
     private final PrescriptionRepository prescriptionRepository;
 
-    public PrescriptionController(PrescriptionService service, UserRepository userRepo, PrescriptionRepository prescriptionRepository) {
+    public PrescriptionController(PrescriptionService service, PrescriptionRepository prescriptionRepository) {
         this.service = service;
-        this.userRepo = userRepo;
         this.prescriptionRepository = prescriptionRepository;
     }
 
@@ -49,22 +47,6 @@ public class PrescriptionController {
         model.addAttribute("prescription", new PrescriptionDTO());
         return "prescriptions/form";
     }
-
-    // @PostMapping
-    // public String save(@Valid @ModelAttribute PrescriptionDTO dto, BindingResult br, Principal principal) {
-    //     if (br.hasErrors()) return "prescriptions/form";
-    //     Prescription p = new Prescription();
-    //     p.setPrescriptionDate(dto.getPrescriptionDate());
-    //     p.setPatientName(dto.getPatientName());
-    //     p.setPatientAge(dto.getPatientAge());
-    //     p.setPatientGender(dto.getPatientGender());
-    //     p.setDiagnosis(dto.getDiagnosis());
-    //     p.setMedicines(dto.getMedicines());
-    //     p.setNextVisitDate(dto.getNextVisitDate());
-    //     p.setCreatedBy(userRepo.findByUsername(principal.getName()).orElse(null));
-    //     service.save(p);
-    //     return "redirect:/prescriptions";
-    // }
 
     @PostMapping
     public String savePrescription(@AuthenticationPrincipal User user, @Valid @ModelAttribute Prescription prescription, BindingResult br) {

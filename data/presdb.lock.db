@@ -1,6 +1,6 @@
 #FileLock
-#Sat Nov 08 23:53:05 BDT 2025
+#Sun Nov 09 00:28:39 BDT 2025
 hostName=Tanvir
-id=19a6499b1a3d21c520b46eec095de8b68846ff025fe
+id=19a64ba4252cda49ed571a9f7d4e7a58378f275074d
 method=file
-server=192.168.0.106\:55252
+server=192.168.0.106\:64245
