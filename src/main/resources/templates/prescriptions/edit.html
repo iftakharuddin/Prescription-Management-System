@@ -1,65 +1,146 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Edit Prescription</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <meta charset="UTF-8">
+  <title>Edit Prescription</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #e3f2fd, #ffffff);
+      min-height: 100vh;
+      padding-bottom: 50px;
+    }
+
+    .card {
+      border-radius: 15px;
+      background: #fff;
+      border: none;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+      margin-bottom: 50px;
+    }
+
+    h2 {
+      font-weight: 600;
+      color: #0d6efd;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    }
+
+    label {
+      font-weight: 500;
+      color: #333;
+    }
+
+    .form-control, .form-select {
+      border-radius: 8px;
+      border: 1px solid #ced4da;
+      box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .form-control:focus, .form-select:focus {
+      border-color: #0d6efd;
+      box-shadow: 0 0 6px rgba(13,110,253,0.3);
+    }
+
+    .btn-success {
+      background: linear-gradient(90deg, #198754, #20c997);
+      border: none;
+      font-weight: 500;
+      transition: background 0.3s;
+    }
+
+    .btn-success:hover {
+      background: linear-gradient(90deg, #157347, #198754);
+    }
+
+    .btn-secondary {
+      background: linear-gradient(90deg, #6c757d, #adb5bd);
+      border: none;
+      font-weight: 500;
+      transition: background 0.3s;
+    }
+
+    .btn-secondary:hover {
+      background: linear-gradient(90deg, #495057, #6c757d);
+    }
+
+    .form-section-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #0d6efd;
+      margin-top: 1rem;
+      border-bottom: 2px solid #0d6efd;
+      display: inline-block;
+      padding-bottom: 4px;
+    }
+
+    .container {
+      max-width: 720px;
+      margin-top: 50px;
+      margin-bottom: 50px;
+    }
+  </style>
 </head>
-<body class="bg-light">
-<div class="container mt-4">
-    <h2 class="text-center mb-4">Edit Prescription</h2>
 
-    <form th:action="@{'/prescriptions/update/' + ${prescription.id}}" th:object="${prescription}" method="post" class="card p-4 shadow-sm">
+<body>
+  <div class="container">
+    <h2 class="text-center mb-4">✎ Edit Prescription</h2>
 
-        <div class="mb-3">
-            <label for="prescriptionDate" class="form-label">Prescription Date</label>
-            <input type="date" id="prescriptionDate"
-                th:field="*{prescriptionDate}"
-                class="form-control" required>
+    <form th:action="@{'/prescriptions/update/' + ${prescription.id}}"
+          th:object="${prescription}" method="post"
+          class="card p-4 shadow-lg">
+      
+      <div class="form-section-title">Patient Information</div>
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label for="patientName" class="form-label">Patient Name</label>
+          <input type="text" id="patientName" th:field="*{patientName}" class="form-control" required>
         </div>
 
-        <div class="mb-3">
-            <label for="patientName" class="form-label">Patient Name</label>
-            <input type="text" id="patientName" th:field="*{patientName}" class="form-control" required>
+        <div class="col-md-3 mb-3">
+          <label for="patientAge" class="form-label">Age</label>
+          <input type="number" id="patientAge" th:field="*{patientAge}" min="0" max="120" class="form-control" required>
         </div>
 
-        <div class="mb-3">
-            <label for="patientAge" class="form-label">Patient Age</label>
-            <input type="number" id="patientAge" th:field="*{patientAge}" min="0" max="120" class="form-control" required>
+        <div class="col-md-3 mb-3">
+          <label for="patientGender" class="form-label">Gender</label>
+          <select id="patientGender" th:field="*{patientGender}" class="form-select" required>
+            <option value="" disabled>Select</option>
+            <option value="Male" th:selected="${prescription.patientGender == 'Male'}">Male</option>
+            <option value="Female" th:selected="${prescription.patientGender == 'Female'}">Female</option>
+            <option value="Other" th:selected="${prescription.patientGender == 'Other'}">Other</option>
+          </select>
         </div>
+      </div>
 
-        <div class="mb-3">
-            <label for="patientGender" class="form-label">Patient Gender</label>
-            <select id="patientGender" th:field="*{patientGender}" class="form-select" required>
-                <option value="" disabled>Select gender</option>
-                <option value="Male" th:selected="${prescription.patientGender == 'Male'}">Male</option>
-                <option value="Female" th:selected="${prescription.patientGender == 'Female'}">Female</option>
-                <option value="Other" th:selected="${prescription.patientGender == 'Other'}">Other</option>
-            </select>
-        </div>
+      <div class="form-section-title">Prescription Details</div>
+      <div class="mb-3">
+        <label for="prescriptionDate" class="form-label">Prescription Date</label>
+        <input type="date" id="prescriptionDate" th:field="*{prescriptionDate}" class="form-control" required>
+      </div>
 
-        <div class="mb-3">
-            <label for="diagnosis" class="form-label">Diagnosis</label>
-            <textarea id="diagnosis" th:field="*{diagnosis}" class="form-control" rows="3"></textarea>
-        </div>
+      <div class="mb-3">
+        <label for="diagnosis" class="form-label">Diagnosis</label>
+        <textarea id="diagnosis" th:field="*{diagnosis}" class="form-control" rows="3" placeholder="Write diagnosis..."></textarea>
+      </div>
 
-        <div class="mb-3">
-            <label for="medicines" class="form-label">Medicines</label>
-            <textarea id="medicines" th:field="*{medicines}" class="form-control" rows="3"></textarea>
-        </div>
+      <div class="mb-3">
+        <label for="medicines" class="form-label">Medicines</label>
+        <textarea id="medicines" th:field="*{medicines}" class="form-control" rows="4" placeholder="Write prescribed medicines..."></textarea>
+      </div>
 
-        <div class="mb-3">
-            <label for="nextVisitDate" class="form-label">Next Visit Date</label>
-            <input type="date" id="nextVisitDate"
-                th:field="*{nextVisitDate}"
-                class="form-control">
-        </div>
+      <div class="mb-3">
+        <label for="nextVisitDate" class="form-label">Next Visit Date</label>
+        <input type="date" id="nextVisitDate" th:field="*{nextVisitDate}" class="form-control">
+      </div>
 
-        <div class="d-flex justify-content-between">
-            <a href="/prescriptions" class="btn btn-secondary">Cancel</a>
-            <button type="submit" class="btn btn-success">Update Prescription</button>
-        </div>
+      <div class="d-flex justify-content-between mt-4">
+        <a href="/prescriptions" class="btn btn-secondary px-4">← Cancel</a>
+        <button type="submit" class="btn btn-success px-4">💾 Update Prescription</button>
+      </div>
     </form>
-</div>
+  </div>
 </body>
 </html>
