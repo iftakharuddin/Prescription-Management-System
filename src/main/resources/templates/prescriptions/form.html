@@ -5,9 +5,17 @@
 <body class="p-4">
 <div class="container">
   <h2>New Prescription</h2>
-  <form th:action="@{/prescriptions}" th:object="${prescriptionDTO}" method="post">
-    <div><label>Date</label><input class="form-control" type="date" th:field="*{prescriptionDate}"/></div>
-    <div><label>Patient Name</label><input class="form-control" th:field="*{patientName}"/></div>
+  <form th:action="@{/prescriptions}" th:object="${prescription}" method="post">
+    <div>
+        <label>Date</label>
+        <input class="form-control" type="date" th:field="*{prescriptionDate}"/>
+        <div th:if="${#fields.hasErrors('prescriptionDate')}" th:errors="*{prescriptionDate}"></div>
+    </div>
+    <div>
+        <label>Patient Name</label>
+        <input class="form-control" th:field="*{patientName}"/>
+        <div th:if="${#fields.hasErrors('patientName')}" th:errors="*{patientName}"></div>
+    </div>
     <div><label>Age</label><input class="form-control" type="number" th:field="*{patientAge}"/></div>
     <div><label>Gender</label>
       <select class="form-control" th:field="*{patientGender}">
@@ -18,7 +26,11 @@
       </select>
     </div>
     <div><label>Diagnosis</label><textarea class="form-control" th:field="*{diagnosis}"></textarea></div>
-    <div><label>Medicines</label><textarea class="form-control" th:field="*{medicines}"></textarea></div>
+    <div>
+        <label>Medicines</label>
+        <textarea class="form-control" th:field="*{medicines}"></textarea>
+        <div th:if="${#fields.hasErrors('medicines')}" th:errors="*{medicines}"></div>
+    </div>
     <div><label>Next Visit Date</label><input class="form-control" type="date" th:field="*{nextVisitDate}"/></div>
     <button class="btn btn-primary mt-2" type="submit">Save</button>
   </form>

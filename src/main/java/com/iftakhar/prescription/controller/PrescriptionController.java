@@ -46,7 +46,7 @@ public class PrescriptionController {
 
     @GetMapping("/new")
     public String form(Model model) {
-        model.addAttribute("prescriptionDTO", new PrescriptionDTO());
+        model.addAttribute("prescription", new PrescriptionDTO());
         return "prescriptions/form";
     }
 
@@ -67,15 +67,17 @@ public class PrescriptionController {
     // }
 
     @PostMapping
-    public String savePrescription(@AuthenticationPrincipal User user, @ModelAttribute Prescription prescription, BindingResult br) {
-        if (br.hasErrors()) return "prescriptions/form";
+    public String savePrescription(@AuthenticationPrincipal User user, @Valid @ModelAttribute Prescription prescription, BindingResult br) {
+        if(br.hasErrors()) {
+            return "prescriptions/form";
+        }
         prescription.setUser(user);
         prescriptionRepository.save(prescription);
         return "redirect:/prescriptions";
     }   
 
 
-    @PostMapping("/{id}/delete")
+    @PostMapping("/delete/{id}")
     public String delete(@PathVariable Long id) {
         service.delete(id);
         return "redirect:/prescriptions";

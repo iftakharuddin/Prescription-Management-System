@@ -31,3 +31,7 @@ build/
 
 ### VS Code ###
 .vscode/
+
+/data/presdb.mv.db
+/data/presdb.trace.db
+/logs/

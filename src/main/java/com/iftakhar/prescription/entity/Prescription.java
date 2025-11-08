@@ -2,6 +2,8 @@ package com.iftakhar.prescription.entity;
 
 import jakarta.persistence.*;
 import java.time.LocalDate;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -10,9 +12,12 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class Prescription {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    
+    @NotNull(message = "Date is required")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate prescriptionDate;
+
+    @NotBlank(message = "Patient name is required")
     private String patientName;
     private Integer patientAge;
     private String patientGender;
@@ -20,6 +25,7 @@ public class Prescription {
     @Column(columnDefinition = "TEXT")
     private String diagnosis;
 
+    @NotBlank(message = "Medicine name is required")
     @Column(columnDefinition = "TEXT")
     private String medicines;
 
