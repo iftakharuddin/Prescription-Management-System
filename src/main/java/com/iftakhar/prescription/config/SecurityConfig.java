@@ -35,6 +35,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/h2-console/**").permitAll()
                         .requestMatchers("/signup", "/css/**").permitAll()
                         .anyRequest().authenticated()
                 )
@@ -42,7 +43,17 @@ public class SecurityConfig {
                         .loginPage("/login").permitAll()
                         .defaultSuccessUrl("/prescriptions", true)
                 )
-                .logout(logout -> logout.permitAll());
+                .logout(logout -> logout
+                    .logoutUrl("/logout")                
+                    .logoutSuccessUrl("/login?logout")   
+                    .invalidateHttpSession(true)         
+                    .deleteCookies("JSESSIONID")         
+                    .permitAll()
+                );
+
+        http.csrf(csrf -> csrf.ignoringRequestMatchers("/h2-console/**"));
+        http.headers(headers -> headers.frameOptions(frame -> frame.sameOrigin()));
+
         return http.build();
     }
 }
