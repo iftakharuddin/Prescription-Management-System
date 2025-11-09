@@ -33,9 +33,6 @@ public class Prescription {
     private LocalDate nextVisitDate;
 
     @ManyToOne
-    private User createdBy;
-
-    @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
@@ -103,14 +100,6 @@ public class Prescription {
 
     public void setNextVisitDate(LocalDate nextVisitDate) {
         this.nextVisitDate = nextVisitDate;
-    }
-
-    public User getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(User createdBy) {
-        this.createdBy = createdBy;
     }
 
     public User getUser() { return user; }
