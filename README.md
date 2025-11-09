@@ -22,7 +22,7 @@ It allows doctors to easily **create, view, edit, delete, and manage prescriptio
 | --------------- | ----------------------- |
 | Backend         | Spring Boot (Java)      |
 | Frontend        | Thymeleaf + Bootstrap 5 |
-| Database        | H2 (In-Memory) or MySQL |
+| Database        | H2 (file based)         |
 | Security        | Spring Security         |
 | Template Engine | Thymeleaf               |
 | Build Tool      | Maven                   |
@@ -36,13 +36,13 @@ Follow these simple steps to run the project on your local machine.
 #### **1️⃣ Clone the repository**
 
 ```bash
-git clone https://github.com/your-username/prescription-app.git
-cd prescription-app
+git clone https://github.com/iftakharuddin/Prescription-Management-System.git
+cd Prescription-Management-System
 ```
 
 #### **2️⃣ Configure the database**
 
-By default, the project uses **H2 Database** (in-memory), so you can run it instantly without setup.
+By default, the project uses **H2 Database** (file based), so you can run it instantly without setup.
 If you want to use **MySQL**, open the file:
 
 ```
@@ -91,8 +91,8 @@ Once started, open your browser and visit:
 If you’ve configured sample data or user creation logic, you can log in with a default account such as:
 
 ```
-Username: doctor1
-Password: 1234
+Username: admin
+Password: admin
 ```
 
 Otherwise, sign up for a new account from the **Sign Up** page.
