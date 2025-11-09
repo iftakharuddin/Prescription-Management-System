@@ -208,5 +208,5 @@ This project is open-source and available under the **MIT License**.
 ### 🧑‍⚕️ Author
 
 **Iftakhar Uddin**
-Department of Computer Science & Engineering, University of Dhaka
+
 💼 Aspiring Backend Engineer | 💬 Java | Spring Boot | Flask | PostgreSQL
