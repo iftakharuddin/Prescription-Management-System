@@ -32,7 +32,6 @@ public class PrescriptionService {
             repo.deleteById(id);
         }
     }
-    // public List<DayCount> dayWise() { return repo.countByDay(); }
 
     public Map<LocalDate, Long> dayWise(String username) {
         List<Object[]> results = repo.dayWiseByUser(username);

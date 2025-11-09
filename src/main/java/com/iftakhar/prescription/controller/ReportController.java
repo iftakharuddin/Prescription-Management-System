@@ -12,12 +12,6 @@ public class ReportController {
     private final PrescriptionService service;
     public ReportController(PrescriptionService service){this.service=service;}
 
-    // @GetMapping("/reports/daily")
-    // public String daily(Model model){
-    //     model.addAttribute("dayCounts", service.dayWise());
-    //     return "reports/daily";
-    // }
-
     @GetMapping("/reports/daily")
     public String daily(Model model, Principal principal) {
         String username = principal.getName(); // get currently logged-in user
